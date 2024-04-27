@@ -456,19 +456,19 @@ void HashTable<K,V,Prober,Hash,KEqual>::resize()
 {
     std::vector<HashItem*> temp;
     for (size_t i = 0; i < table_.size(); i++) {
-        if (!table_[i]) { 
-            continue; // Skip empty entries
-        } 
-        if (table_[i]->deleted) {
-            delete table_[i];
-            table_[i] = nullptr;
-            aVar--; // Decrement aVar for deleted entries
-        } 
-        else {
-            temp.push_back(table_[i]);
-            table_[i] = nullptr; 
-            elementNum++; // Increment elementNum for valid entries
-        }
+      if (!table_[i]) { 
+          continue; // Skip empty entries
+      } 
+      if (table_[i]->deleted) {
+          delete table_[i];
+          table_[i] = NULL;
+          aVar--; // Decrement aVar for deleted entries
+      } 
+      else {
+          temp.push_back(table_[i]);
+          table_[i] = NULL; 
+          elementNum++; // Increment elementNum for valid entries
+      }
     }
 
     elementNum = temp.size(); 
@@ -478,8 +478,8 @@ void HashTable<K,V,Prober,Hash,KEqual>::resize()
     table_.resize(CAPACITIES[mIndex_], nullptr); // Resize to the next capacity
 
     for (size_t i = 0; i < temp.size(); i++) {
-        HASH_INDEX_T h = this->probe(temp[i]->item.first); // Recalculate hash index
-        table_[h] = temp[i];
+      HASH_INDEX_T h = this->probe(temp[i]->item.first); // Recalculate hash index
+      table_[h] = temp[i];
     }
 }
 
